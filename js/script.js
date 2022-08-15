@@ -147,6 +147,7 @@ const weatherIcon = document.querySelector('.weather-icon');
 const temperature = document.querySelector('.temperature');
 const weatherDescription = document.querySelector('.weather-description');
 const city = document.querySelector('.city');
+city.value = 'Moscow'; // по умолчанию покапоставил Москву, чтоб не было ошибок в консоли, потом удалить
 
 async function getWeather() {
     const url = `https://api.openweathermap.org/data/2.5/weather?q=${city.value}&lang=en&appid=14f1061edcbf91ddf2f8948a4263ba58&units=metric`;
@@ -158,9 +159,27 @@ async function getWeather() {
     temperature.textContent = `${data.main.temp}°C`;
     weatherDescription.textContent = data.weather[0].description;
 
-    console.log(data.weather[0].id, data.weather[0].description, data.main.temp);
+    // console.log(data.weather[0].id, data.weather[0].description, data.main.temp);
 }
 getWeather()
 
 city.addEventListener('change', getWeather);
 
+// Можно добавить Скорость ветра, влажность как на Демо, но это потом Фиксами добавлять
+
+
+// 5 Виджет "цитата дня"
+
+const quote = document.querySelector('.quote');
+const author = document.querySelector('.author');
+// пока напишу для теста
+quote.textContent = "Пишите код так, как будто сопровождать его будет склонный к насилию психопат, который знает, где вы живете";
+author.textContent = "Стив Макконнелл";
+
+// async function getQuotes() {
+//     const quotes = 'js/data.json';
+//     const res = await fetch(quotes);
+//     const data = await res.json();
+//     console.log(data);
+// }
+// getQuotes();
