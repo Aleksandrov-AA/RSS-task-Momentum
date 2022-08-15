@@ -128,8 +128,39 @@ function setBg() {
 }
 setBg(); // если убрать эту строчку, то стаптовать будет всегда с одного изображения
 
+// нужно добавить плавную загрузку, но пока не ясно что за код нцжно вставить в 
+// function setBg() {  
+//     const img = new Image();
+//     img.src = // здесь ваш код 
+//     img.onload = () => {      
+//       body.style.backgroundImage = // здесь тоже ваш код
+//     }; 
+//   }
+
+// РАЗОБРАТЬСЯ 
+// https://github.com/rolling-scopes-school/tasks/blob/master/tasks/momentum/momentum-slider.md
 
 
+// 4 Виджет погоды
 
- 
+const weatherIcon = document.querySelector('.weather-icon');
+const temperature = document.querySelector('.temperature');
+const weatherDescription = document.querySelector('.weather-description');
+const city = document.querySelector('.city');
+
+async function getWeather() {
+    const url = `https://api.openweathermap.org/data/2.5/weather?q=${city.value}&lang=en&appid=14f1061edcbf91ddf2f8948a4263ba58&units=metric`;
+    const res = await fetch(url);
+    const data = await res.json();
+
+    weatherIcon.className = 'weather-icon owf';
+    weatherIcon.classList.add(`owf-${data.weather[0].id}`);
+    temperature.textContent = `${data.main.temp}°C`;
+    weatherDescription.textContent = data.weather[0].description;
+
+    console.log(data.weather[0].id, data.weather[0].description, data.main.temp);
+}
+getWeather()
+
+city.addEventListener('change', getWeather);
 
