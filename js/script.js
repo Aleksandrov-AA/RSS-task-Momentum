@@ -84,4 +84,52 @@ function getLocalStorage() {
 window.addEventListener('load', getLocalStorage)
 
 
-// 3. Приветствие
+// 3. Слайдер изображений
+
+let randomNum;
+const slideNext = document.querySelector('.slide-next');
+const slidePrev = document.querySelector('.slide-prev');
+
+function getRandomNum() {
+    randomNum = Math.round(Math.random() * (21 - 1) + 1);
+}
+getRandomNum(); // это скорее лишнее - нужно найти решение 
+
+function getSlideNext() {
+    if (randomNum === 20) {
+        randomNum = 1;
+    } else {
+        randomNum += 1;
+    }
+    setBg();
+}
+slideNext.addEventListener('click', getSlideNext);
+
+function getSlidePrev() {
+    if (randomNum === 1) {
+        randomNum = 20;
+    } else {
+        randomNum -= 1;
+    }
+    setBg();
+}
+slidePrev.addEventListener('click', getSlidePrev);
+
+function setBg() {
+    const timeOfDay = getTimeOfDay();
+    let bgNum = randomNum;
+    bgNum = String(bgNum).padStart(2, '0');
+    const body = document.querySelector('body');
+    
+
+    body.style.backgroundImage = `url('https://raw.githubusercontent.com/rolling-scopes-school/stage1-tasks/assets/images/${timeOfDay}/${bgNum}.jpg')`;
+    
+    // console.log(bgNum);
+}
+setBg(); // если убрать эту строчку, то стаптовать будет всегда с одного изображения
+
+
+
+
+ 
+
