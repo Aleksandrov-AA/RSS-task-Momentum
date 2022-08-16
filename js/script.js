@@ -173,8 +173,8 @@ city.addEventListener('change', getWeather);
 const quote = document.querySelector('.quote');
 const author = document.querySelector('.author');
 // пока напишу для теста
-quote.textContent = "Пишите код так, как будто сопровождать его будет склонный к насилию психопат, который знает, где вы живете";
-author.textContent = "Стив Макконнелл";
+// quote.textContent = "Пишите код так, как будто сопровождать его будет склонный к насилию психопат, который знает, где вы живете";
+// author.textContent = "Стив Макконнелл";
 
 // async function getQuotes() {
 //     const quotes = 'js/data.json';
@@ -183,3 +183,35 @@ author.textContent = "Стив Макконнелл";
 //     console.log(data);
 // }
 // getQuotes();
+
+// временное решение просто перебор из массива
+
+var quoteText = [
+    {
+      "text": "Пишите код так, как будто сопровождать его будет склонный к насилию психопат, который знает, где вы живете",
+      "author": "Стив Макконнелл"
+    },
+    {
+      "text": "Сложность программы растет до тех пор, пока не превысит способности программиста",
+      "author": "Артур Блох. Законы Мэрфи"
+    },
+      {
+      "text": "Ходить по воде и разрабатывать программы, следуя ТЗ, очень просто… если они заморожены",
+      "author": "И. Берард"
+    }
+  ];
+var q = 0;
+quote.textContent = quoteText[q].text;
+author.textContent = quoteText[q].author;
+
+const quoteNext = document.querySelector('.change-quote');
+function getQuoteNext() {
+    if (q === 2) {
+        q = 0;
+    } else {
+        q += 1;
+    }
+    quote.textContent = quoteText[q].text;
+    author.textContent = quoteText[q].author;    
+}
+quoteNext.addEventListener('click', getQuoteNext);
