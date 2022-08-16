@@ -37,13 +37,13 @@ function getTimeOfDay() {
     const date = new Date();
     const hours = date.getHours();
     
-    if (hours >= 0 && hours <= 3) {
+    if (hours >= 0 && hours <= 5) {
         return 'night';
-    } else if (hours >= 4 && hours <= 11) {
+    } else if (hours >= 6 && hours <= 11) {
         return 'morning';
-    } else if (hours >= 12 && hours <= 16) {
+    } else if (hours >= 12 && hours <= 17) {
         return 'afternoon';
-    } else if (hours >= 17 && hours <= 23) {
+    } else if (hours >= 18 && hours <= 23) {
         return 'evening'
     }
     // стандартная разбивка по 6 часов, но не совсем логичная по времени суток:
