@@ -88,6 +88,7 @@ function showGreeting() {
 }
 
 const nameGr = document.querySelector('.nameGr');
+document.querySelector('.nameGr').placeholder = '[Enter your Name]';
 
 function setLocalStorage() {
     localStorage.setItem('name', nameGr.value);
@@ -133,8 +134,7 @@ function getSlidePrev() {
 }
 slidePrev.addEventListener('click', getSlidePrev);
 
-function setBg() {
-    const timeOfDay = getTimeOfDay();
+function setBg() {    
     let bgNum = randomNum;
     bgNum = String(bgNum).padStart(2, '0');
     const body = document.querySelector('body');
@@ -391,6 +391,8 @@ function getEnglish() {
     lang = 'en';
     langWeather = 'en';
 
+    document.querySelector('.nameGr').placeholder = '[Enter your Name]';
+
     getWeather();
     showDate();
     getTimeOfDay();
@@ -402,6 +404,8 @@ function getRussian() {
     langDate = 'ru-RU';
     lang = 'ru';
     langWeather = 'ru';
+
+    document.querySelector('.nameGr').placeholder = '[Введи своё Имя]';
 
     getWeather();
     showDate();
