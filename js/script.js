@@ -150,6 +150,18 @@ getWeather()
 
 city.addEventListener('change', getWeather);
 
+function setLocalStorageCity() {
+    localStorage.setItem('city', city.value);
+}
+window.addEventListener('beforeunload', setLocalStorageCity);
+
+function getLocalStorageCity() {
+    if(localStorage.getItem('city')) {
+        city.value = localStorage.getItem('city');
+    }
+}
+window.addEventListener('load', getLocalStorageCity);
+
 // Можно добавить Скорость ветра, влажность как на Демо, но это потом Фиксами добавлять
 
 
