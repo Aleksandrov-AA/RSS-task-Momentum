@@ -142,7 +142,7 @@ async function getWeather() {
     const res = await fetch(url);
     const data = await res.json();
 
-    if (data.cod === '404') { // добавил сообщение об ошибке, но пришлось продублировать весь код ниже, чтоб обнулить значения, скорее всего есть более красивые методы.
+    if (data.cod === '404' || data.cod === '400') { // добавил сообщение об ошибке, но пришлось продублировать весь код ниже, чтоб обнулить значения, скорее всего есть более красивые методы.
         weatherError.textContent = `Error: "${city.value}" - ${data.message}`;
         weatherIcon.className = 'weather-icon owf';
         temperature.textContent = '';
