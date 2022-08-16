@@ -147,7 +147,7 @@ const weatherIcon = document.querySelector('.weather-icon');
 const temperature = document.querySelector('.temperature');
 const weatherDescription = document.querySelector('.weather-description');
 const city = document.querySelector('.city');
-city.value = 'Moscow'; // по умолчанию покапоставил Москву, чтоб не было ошибок в консоли, потом удалить
+city.value = 'Minsk'; // по умолчанию покапоставил Москву, чтоб не было ошибок в консоли, потом удалить
 
 async function getWeather() {
     const url = `https://api.openweathermap.org/data/2.5/weather?q=${city.value}&lang=en&appid=14f1061edcbf91ddf2f8948a4263ba58&units=metric`;
