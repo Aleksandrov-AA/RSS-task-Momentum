@@ -215,3 +215,8 @@ function getQuoteNext() {
     author.textContent = quoteText[q].author;    
 }
 quoteNext.addEventListener('click', getQuoteNext);
+
+// потом переписать решение на нормальное функционирование из асинхронного запроса
+
+
+// 6 Аудиоплеер
