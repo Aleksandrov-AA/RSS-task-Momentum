@@ -131,6 +131,8 @@ setBg(); // если убрать эту строчку, то стаптоват
 const weatherIcon = document.querySelector('.weather-icon');
 const temperature = document.querySelector('.temperature');
 const weatherDescription = document.querySelector('.weather-description');
+const wind = document.querySelector('.wind');
+const humidity = document.querySelector('.humidity');
 const city = document.querySelector('.city');
 city.value = 'Minsk'; // по умолчанию покапоставил Москву, чтоб не было ошибок в консоли, потом удалить
 
@@ -141,10 +143,10 @@ async function getWeather() {
 
     weatherIcon.className = 'weather-icon owf';
     weatherIcon.classList.add(`owf-${data.weather[0].id}`);
-    temperature.textContent = `${data.main.temp}°C`;
+    temperature.textContent = `${Math.round(data.main.temp)}°C`;
     weatherDescription.textContent = data.weather[0].description;
-
-    // console.log(data.weather[0].id, data.weather[0].description, data.main.temp);
+    wind.textContent = `Wind speed: ${Math.round(data.wind.speed)} m/s`;
+    humidity.textContent = `Humidity: ${data.main.humidity}%`;
 }
 getWeather()
 
