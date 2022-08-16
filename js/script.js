@@ -220,3 +220,92 @@ quoteNext.addEventListener('click', getQuoteNext);
 
 
 // 6 Аудиоплеер
+
+// import playList from './playList.js'; если будем добавлять отдельным листом плей лист
+// console.log(playList);
+
+const playList = [
+    {      
+        title: 'Aqua Caelestis',
+        src: '../assets/sounds/Aqua Caelestis.mp3',
+        duration: '00:39'
+    },  
+    {      
+        title: 'River Flows In You',
+        src: '../assets/sounds/River Flows In You.mp3',
+        duration: '01:37'
+    },
+    {      
+        title: 'Summer Wind',
+        src: '../assets/sounds/Summer Wind.mp3',
+        duration: '01:50'
+    },  
+    {      
+        title: 'Ennio Morricone',
+        src: '../assets/sounds/Ennio Morricone.mp3',
+        duration: '01:37'
+    }
+]
+
+let playNum = 0;
+
+let isPlay = false;
+const buttonPlay = document.querySelector('.play');
+
+function playAudio() {
+    audio.src = playList[playNum].src;    
+    audio.play();
+
+    // if (!isPlay) {
+    //     isPlay = true;
+    //     audio.src = playList[playNum].src;
+    //     audio.currentTime = 0; // производит всегда с начала трек
+    //     audio.play();
+    // } else {
+    //     isPlay = false;        
+    //     audio.pause();
+    // }
+    // console.log('555');
+}
+buttonPlay.addEventListener('click', playAudio);
+
+function toggleBtn() {
+    buttonPlay.classList.toggle('pause');
+}
+buttonPlay.addEventListener('click', toggleBtn);
+
+
+// let playNum = 0;
+const playNext = document.querySelector('.play-next');
+const playPrev = document.querySelector('.play-prev');
+
+function getPlayNext() {
+    if (playNum === 3) {
+        playNum = 0;
+    } else {
+        playNum += 1;
+    }
+    playAudio();
+}
+playNext.addEventListener('click', getPlayNext);
+
+function getPlayPrev() {
+    if (playNum === 0) {
+        playNum = 3;
+    } else {
+        playNum -= 1;
+    }
+    playAudio();
+}
+playPrev.addEventListener('click', getPlayPrev);
+
+// добавляю треки на страницу через перебор массива ПлейЛиста
+
+const playListContainer = document.querySelector('.play-list');
+
+for(let i = 0; i < playList.length; i++) {
+    const li = document.createElement('li');
+    li.classList.add('play-item');
+    li.textContent = playList[i].title;
+    playListContainer.append(li);
+}
