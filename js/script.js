@@ -19,7 +19,7 @@ function showDate() {
     const dateText = document.querySelector('.date');
     const date = new Date();
     const options = {weekday: 'long', month: 'long', day: 'numeric'};    
-    const currentDate = date.toLocaleDateString('en-US', options);
+    const currentDate = date.toLocaleDateString(langDate, options);
 
     // const options = {month: 'long', day: 'numeric', hour: 'numeric', minute: 'numeric', timeZone: 'UTC'};
     // подробнее про формат отображения по ссылке ниже
@@ -32,19 +32,40 @@ showDate();
 
 
 // 2. Приветствие
+var imgDay = '';
 
 function getTimeOfDay() {
     const date = new Date();
     const hours = date.getHours();
-    
+        
     if (hours >= 0 && hours <= 5) {
-        return 'night';
+        imgDay = 'night';
+        if (lang === 'en') {            
+            return 'Good night';
+        } else if (lang === 'ru') {
+            return 'Доброй ночи';
+        }        
     } else if (hours >= 6 && hours <= 11) {
-        return 'morning';
+        imgDay = 'morning';
+        if (lang === 'en') {
+            return 'Good morning';
+        } else if (lang === 'ru') {
+            return 'Доброе утро';
+        }        
     } else if (hours >= 12 && hours <= 17) {
-        return 'afternoon';
+        imgDay = 'afternoon';
+        if (lang === 'en') {
+            return 'Good afternoon';
+        } else if (lang === 'ru') {
+            return 'Добрый день';
+        }        
     } else if (hours >= 18 && hours <= 23) {
-        return 'evening'
+        imgDay = 'evening';
+        if (lang === 'en') {
+            return 'Good evening'
+        } else if (lang === 'ru') {
+            return 'Добрый вечер';
+        }        
     }
     // стандартная разбивка по 6 часов, но не совсем логичная по времени суток:
     // if (hours >= 0 && hours < 6) {
@@ -60,7 +81,7 @@ function getTimeOfDay() {
 
 function showGreeting() {
     const timeOfDay = getTimeOfDay();
-    const greetingText = `Good ${timeOfDay}`;
+    const greetingText = `${timeOfDay}`;
     const greeting = document.querySelector('.greeting');
 
     greeting.textContent = greetingText;
@@ -118,9 +139,9 @@ function setBg() {
     bgNum = String(bgNum).padStart(2, '0');
     const body = document.querySelector('body');
     const img = new Image();
-    img.src = `https://raw.githubusercontent.com/rolling-scopes-school/stage1-tasks/assets/images/${timeOfDay}/${bgNum}.jpg`;
+    img.src = `https://raw.githubusercontent.com/rolling-scopes-school/stage1-tasks/assets/images/${imgDay}/${bgNum}.jpg`;
     img.onload = () => {
-        body.style.backgroundImage = `url('https://raw.githubusercontent.com/rolling-scopes-school/stage1-tasks/assets/images/${timeOfDay}/${bgNum}.jpg')`;
+        body.style.backgroundImage = `url('https://raw.githubusercontent.com/rolling-scopes-school/stage1-tasks/assets/images/${imgDay}/${bgNum}.jpg')`;
     };    
 }
 setBg(); // если убрать эту строчку, то стаптовать будет всегда с одного изображения
@@ -138,9 +159,22 @@ const city = document.querySelector('.city');
 city.value = 'Minsk'; // по умолчанию покапоставил Москву, чтоб не было ошибок в консоли, потом удалить
 
 async function getWeather() {
-    const url = `https://api.openweathermap.org/data/2.5/weather?q=${city.value}&lang=en&appid=14f1061edcbf91ddf2f8948a4263ba58&units=metric`;
+    const url = `https://api.openweathermap.org/data/2.5/weather?q=${city.value}&lang=${langWeather}&appid=14f1061edcbf91ddf2f8948a4263ba58&units=metric`;
     const res = await fetch(url);
     const data = await res.json();
+
+    let windText = '';
+    let windTexts = '';
+    let humifityText = '';
+    if (lang === 'en') {
+        windText = 'Wind speed';
+        windTexts = 'm/s';
+        humifityText = 'Humidity';
+    } else if (lang === 'ru') {
+        windText = 'Скорость ветра';
+        windTexts = 'м/с';
+        humifityText = 'Влажность';
+    }
 
     if (data.cod === '404' || data.cod === '400') { // добавил сообщение об ошибке, но пришлось продублировать весь код ниже, чтоб обнулить значения, скорее всего есть более красивые методы.
         weatherError.textContent = `Error: "${city.value}" - ${data.message}`;
@@ -155,8 +189,8 @@ async function getWeather() {
         weatherIcon.classList.add(`owf-${data.weather[0].id}`);
         temperature.textContent = `${Math.round(data.main.temp)}°C`;
         weatherDescription.textContent = data.weather[0].description;
-        wind.textContent = `Wind speed: ${Math.round(data.wind.speed)} m/s`;
-        humidity.textContent = `Humidity: ${data.main.humidity}%`;
+        wind.textContent = `${windText}: ${Math.round(data.wind.speed)} ${windTexts}`;
+        humidity.textContent = `${humifityText}: ${data.main.humidity}%`;
     }  
 }
 getWeather()
@@ -340,3 +374,38 @@ for(let i = 0; i < playList.length; i++) {
     li.textContent = playList[i].title;
     playListContainer.append(li);
 }
+
+
+// 8. Перевод приложения на два языка (en/ru)
+const English = document.querySelector('.english');
+const Russian = document.querySelector('.russian');
+
+var langDate = 'en-US';
+var lang = 'en';
+var langWeather = 'en';
+
+
+//en-US
+function getEnglish() {
+    langDate = 'en-US';
+    lang = 'en';
+    langWeather = 'en';
+
+    getWeather();
+    showDate();
+    getTimeOfDay();
+
+}
+English.addEventListener('click', getEnglish);
+
+function getRussian() {
+    langDate = 'ru-RU';
+    lang = 'ru';
+    langWeather = 'ru';
+
+    getWeather();
+    showDate();
+    getTimeOfDay();
+
+}
+Russian.addEventListener('click', getRussian);

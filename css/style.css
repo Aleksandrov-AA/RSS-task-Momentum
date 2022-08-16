@@ -284,3 +284,24 @@
       padding: 5px;
     }
   }
+
+.language {
+  display: flex;
+}
+
+.button-language {
+  background: #0d606f;
+  border-radius: 10px;
+  border: #fff;
+  color: #fff;
+  font-size: 16px;
+  box-shadow: 0px 4px 4px rgb(0 0 0 / 25%), 0px 2px 3px rgb(13 96 111 / 16%);
+  height: 41px;
+  width: 103px;
+  margin-left: 10px;
+  margin-top: 30px;    
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
