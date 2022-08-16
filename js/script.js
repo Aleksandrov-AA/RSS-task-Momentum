@@ -227,22 +227,22 @@ quoteNext.addEventListener('click', getQuoteNext);
 const playList = [
     {      
         title: 'Aqua Caelestis',
-        src: '../assets/sounds/Aqua Caelestis.mp3',
+        src: './assets/sounds/Aqua Caelestis.mp3',
         duration: '00:39'
     },  
     {      
         title: 'River Flows In You',
-        src: '../assets/sounds/River Flows In You.mp3',
+        src: './assets/sounds/River Flows In You.mp3',
         duration: '01:37'
     },
     {      
         title: 'Summer Wind',
-        src: '../assets/sounds/Summer Wind.mp3',
+        src: './assets/sounds/Summer Wind.mp3',
         duration: '01:50'
     },  
     {      
         title: 'Ennio Morricone',
-        src: '../assets/sounds/Ennio Morricone.mp3',
+        src: './assets/sounds/Ennio Morricone.mp3',
         duration: '01:37'
     }
 ]
@@ -251,21 +251,29 @@ let playNum = 0;
 
 let isPlay = false;
 const buttonPlay = document.querySelector('.play');
+const audio = new Audio();
 
-function playAudio() {
-    audio.src = playList[playNum].src;    
-    audio.play();
-
-    // if (!isPlay) {
-    //     isPlay = true;
-    //     audio.src = playList[playNum].src;
-    //     audio.currentTime = 0; // производит всегда с начала трек
-    //     audio.play();
-    // } else {
-    //     isPlay = false;        
-    //     audio.pause();
+function playAudio(mus) {
+    // function toggleBtn() {
+    //     buttonPlay.classList.toggle('pause');
     // }
-    // console.log('555');
+    // toggleBtn(); // перекинул пока сюда, чтобы тогл работал и при кнопках переключения, хотя можно было просто два вызова сделать.
+    
+    if (!isPlay || mus === 1) {
+        isPlay = true;
+        audio.src = playList[playNum].src;
+        audio.currentTime = 0; // производит всегда с начала трек
+        audio.play();
+
+        if (playListContainer[playNum].textContent === playList[playNum].title) {
+            playListContainer[playNum].classList.add('item-active');
+        } else {
+            playListContainer[playNum].classList.remove('item-active');
+        }
+    } else {
+        isPlay = false;        
+        audio.pause();
+    }    
 }
 buttonPlay.addEventListener('click', playAudio);
 
@@ -280,22 +288,35 @@ const playNext = document.querySelector('.play-next');
 const playPrev = document.querySelector('.play-prev');
 
 function getPlayNext() {
+    if (!isPlay) {
+        toggleBtn();
+    }
+
     if (playNum === 3) {
         playNum = 0;
     } else {
         playNum += 1;
     }
-    playAudio();
+    playAudio(1);
 }
 playNext.addEventListener('click', getPlayNext);
 
 function getPlayPrev() {
+    if (!isPlay) {
+        toggleBtn();
+    }
+    
     if (playNum === 0) {
         playNum = 3;
     } else {
         playNum -= 1;
     }
-    playAudio();
+    playAudio(1);
+
+    // li[playNum].classList.add('item-active');  Надо добавить этот класс текущему треку в списке
+    // if (li.textContent === playList[playNum].title) {
+    //     li.classList.add('item-active');
+    // }
 }
 playPrev.addEventListener('click', getPlayPrev);
 
