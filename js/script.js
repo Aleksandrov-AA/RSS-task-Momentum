@@ -66,19 +66,16 @@ function showGreeting() {
     greeting.textContent = greetingText;
 }
 
-// const name5 = name.value;
-// console.log(name5);
-
-// Пока не сохраняется значение имени, не могу понять почему. Надо починить позже!
+const nameGr = document.querySelector('.nameGr');
 
 function setLocalStorage() {
-    localStorage.setItem('name', name.value);
+    localStorage.setItem('name', nameGr.value);
 }
 window.addEventListener('beforeunload', setLocalStorage)
 
 function getLocalStorage() {
     if(localStorage.getItem('name')) {
-        name.value = localStorage.getItem('name');
+        nameGr.value = localStorage.getItem('name');
     }
 }
 window.addEventListener('load', getLocalStorage)
