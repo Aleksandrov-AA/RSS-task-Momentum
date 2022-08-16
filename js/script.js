@@ -120,25 +120,13 @@ function setBg() {
     let bgNum = randomNum;
     bgNum = String(bgNum).padStart(2, '0');
     const body = document.querySelector('body');
-    
-
-    body.style.backgroundImage = `url('https://raw.githubusercontent.com/rolling-scopes-school/stage1-tasks/assets/images/${timeOfDay}/${bgNum}.jpg')`;
-    
-    // console.log(bgNum);
+    const img = new Image();
+    img.src = `https://raw.githubusercontent.com/rolling-scopes-school/stage1-tasks/assets/images/${timeOfDay}/${bgNum}.jpg`;
+    img.onload = () => {
+        body.style.backgroundImage = `url('https://raw.githubusercontent.com/rolling-scopes-school/stage1-tasks/assets/images/${timeOfDay}/${bgNum}.jpg')`;
+    };    
 }
 setBg(); // если убрать эту строчку, то стаптовать будет всегда с одного изображения
-
-// нужно добавить плавную загрузку, но пока не ясно что за код нцжно вставить в 
-// function setBg() {  
-//     const img = new Image();
-//     img.src = // здесь ваш код 
-//     img.onload = () => {      
-//       body.style.backgroundImage = // здесь тоже ваш код
-//     }; 
-//   }
-
-// РАЗОБРАТЬСЯ 
-// https://github.com/rolling-scopes-school/tasks/blob/master/tasks/momentum/momentum-slider.md
 
 
 // 4 Виджет погоды
